@@ -5,13 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <!-- Enable TRX logger by default -->
+    <VSTestLogger>trx</VSTestLogger>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="LiquidTestReports.Markdown" Version="1.0.9" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="XunitXml.TestLogger" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,5 +25,14 @@
   <ItemGroup>
     <ProjectReference Include="..\EvokerEngine.Core\EvokerEngine.Core.csproj" />
   </ItemGroup>
+
+  <!-- Post-test target to generate HTML report -->
+  <Target Name="GenerateHtmlReport" AfterTargets="VSTest">
+    <Message Text="Generating HTML test report..." Importance="high" />
+    <Exec Command="python3 generate-html-report.py" 
+          WorkingDirectory="$(MSBuildProjectDirectory)" 
+          ContinueOnError="true"
+          IgnoreExitCode="true" />
+  </Target>
 
 </Project>

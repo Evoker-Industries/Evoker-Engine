@@ -217,13 +217,15 @@ dotnet build -f net9.0-ios
 
 ### Run Tests
 
-The project includes comprehensive unit tests covering all core engine features.
+The project includes 149 comprehensive unit tests covering all core engine features.
 
 ```bash
-# Run all tests
+# Run all tests (automatically generates HTML report)
 dotnet test
 
-# Run tests with detailed output
+# The HTML report is generated at: EvokerEngine.Tests/TestResults/TestResults.html
+
+# Run tests with detailed console output
 dotnet test --logger "console;verbosity=detailed"
 
 # Run tests for a specific project
@@ -231,18 +233,53 @@ cd EvokerEngine.Tests
 dotnet test
 ```
 
+#### HTML Test Reports
+
+When you run `dotnet test`, an HTML test report is **automatically generated** with:
+- ✅ Beautiful, interactive test results dashboard
+- 📊 Test statistics and success rate
+- 🔍 Filterable test list (All/Passed/Failed)
+- ⏱️ Individual test execution times
+- 🐛 Detailed error messages for failed tests
+- 📱 Responsive design
+
+The report is saved to: `EvokerEngine.Tests/TestResults/TestResults.html`
+
+Open it in your browser:
+```bash
+# Linux
+xdg-open EvokerEngine.Tests/TestResults/TestResults.html
+
+# macOS  
+open EvokerEngine.Tests/TestResults/TestResults.html
+
+# Windows
+start EvokerEngine.Tests/TestResults/TestResults.html
+```
+
+**Alternative test scripts:**
+- `./run-tests.sh` (Linux/macOS) - Runs tests with colorized output
+- `run-tests.bat` (Windows) - Runs tests with HTML generation
+
 **Test Coverage:**
+- ResourceKey system (10 tests)
+- Inventory system (7 tests)
+- Block system (6 tests)
+- Recipe/Crafting system (9 tests)
+- Dimension system (11 tests)
+- Modding system (10 tests)
 - Logger system (2 tests)
 - Time management (5 tests)
 - Layer stack (4 tests)
 - Event system (10 tests)
 - ECS (Entity Component System) (8 tests)
-- Components (Transform, Camera, MeshRenderer) (7 tests)
+- Components (Transform, Camera, MeshRenderer, Inventory) (7 tests)
 - Scene management and Camera (13 tests)
 - Resource management (17 tests)
-- Platform detection and utilities (8 tests)
+- Platform detection (8 tests)
+- Math utilities (22 tests - MathHelper, VectorHelper, QuaternionHelper, etc.)
 
-**Total: 74 tests** ✅
+**Total: 149 tests** ✅
 
 ### Run the Demo
 
