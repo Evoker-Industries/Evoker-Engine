@@ -49,3 +49,19 @@ public class CameraComponent : Component
             FarPlane);
     }
 }
+
+/// <summary>
+/// Inventory component for entities that can carry items
+/// </summary>
+public class InventoryComponent : Component
+{
+    public Inventory.Inventory Inventory { get; private set; }
+
+    public InventoryComponent(int capacity = 20, float maxWeight = 0f)
+    {
+        Inventory = new Inventory.Inventory(capacity)
+        {
+            MaxWeight = maxWeight
+        };
+    }
+}

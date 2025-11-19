@@ -19,7 +19,9 @@ Evoker-Engine is a complete, production-ready C# game engine with Vulkan renderi
    - Vulkan 1.2 integration via Silk.NET.Vulkan
    - Device initialization and queue management
    - Swapchain creation and management
-   - Multi-platform support (Windows, Linux, macOS)
+   - Multi-platform support (Windows, Linux, macOS, **iOS, Android**)
+   - Platform-specific Vulkan surface extensions
+   - Unified API across all platforms
    - Surface creation for rendering
 
 3. **Input System**

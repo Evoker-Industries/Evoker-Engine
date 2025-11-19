@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Silk.NET.Vulkan;
 using Silk.NET.Vulkan.Extensions.KHR;
 using Silk.NET.Windowing;
+using EvokerEngine.Core;
 
 namespace EvokerEngine.Graphics;
 
@@ -91,14 +92,7 @@ public unsafe class VulkanContext
 
     private string[] GetRequiredExtensions()
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            return new[] { "VK_KHR_surface", "VK_KHR_win32_surface" };
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            return new[] { "VK_KHR_surface", "VK_KHR_xcb_surface" };
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            return new[] { "VK_KHR_surface", "VK_EXT_metal_surface" };
-        else
-            throw new PlatformNotSupportedException();
+        return new[] { "VK_KHR_surface", Platform.GetVulkanSurfaceExtension() };
     }
 
     private void CreateSurface(IWindow window)

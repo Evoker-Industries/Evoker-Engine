@@ -21,7 +21,10 @@ A complete C# game engine with Vulkan rendering support using Silk.NET.
 - **Vulkan Rendering**: Full Vulkan integration using Silk.NET.Vulkan
 - **Vulkan Context**: Device initialization, queue management, and surface creation
 - **Swapchain Management**: Automatic swapchain creation and management
-- **Multi-platform Support**: Windows, Linux, and macOS support
+- **Multi-platform Support**: Windows, Linux, macOS, **iOS, and Android** support with unified API
+  - Automatic platform detection
+  - Platform-specific Vulkan surface extensions (Win32, XCB, Metal, Android)
+  - Same API across all platforms
 
 ### Input System
 
@@ -69,7 +72,8 @@ EvokerEngine.Core/
 │   ├── Layer.cs       # Layer base class
 │   ├── LayerStack.cs  # Layer management
 │   ├── Logger.cs      # Logging system
-│   └── Time.cs        # Time management
+│   ├── Time.cs        # Time management
+│   └── Platform.cs    # Cross-platform utilities
 ├── Graphics/          # Rendering system
 │   ├── VulkanContext.cs   # Vulkan initialization
 │   └── VulkanSwapchain.cs # Swapchain management
@@ -106,11 +110,35 @@ EvokerEngine.Tests/    # Unit tests
 
 - .NET 9.0 SDK or later
 - Vulkan SDK (runtime only)
+- **For iOS/Android builds**: .NET MAUI workloads (optional)
+  ```bash
+  dotnet workload install ios android
+  ```
 
 ### Build Steps
 
+#### Desktop Platforms (Windows, Linux, macOS)
+
 ```bash
 dotnet build
+```
+
+#### Mobile Platforms (iOS, Android)
+
+To build for mobile platforms with workloads installed:
+
+```bash
+dotnet build -p:BuildForMobile=true
+```
+
+Or build specific mobile targets:
+
+```bash
+# Build for Android
+dotnet build -f net9.0-android
+
+# Build for iOS
+dotnet build -f net9.0-ios
 ```
 
 ### Run Tests
@@ -138,8 +166,9 @@ dotnet test
 - Components (Transform, Camera, MeshRenderer) (7 tests)
 - Scene management and Camera (13 tests)
 - Resource management (17 tests)
+- Platform detection and utilities (8 tests)
 
-**Total: 66 tests** ✅
+**Total: 74 tests** ✅
 
 ### Run the Demo
 
@@ -287,12 +316,37 @@ var shader = resourceManager.Load<Shader>("MyShader");
 var mesh = resourceManager.Load<Mesh>("MyMesh");
 ```
 
+### Platform Detection
+
+```csharp
+// Check current platform
+if (Platform.IsMobile)
+{
+    Logger.Info($"Running on mobile: {Platform.PlatformName}");
+}
+
+// Platform-specific code
+if (Platform.IsAndroid)
+{
+    // Android-specific initialization
+}
+else if (Platform.IsIOS)
+{
+    // iOS-specific initialization
+}
+
+// Get Vulkan surface extension for current platform
+var surfaceExtension = Platform.GetVulkanSurfaceExtension();
+// Returns: VK_KHR_win32_surface, VK_KHR_xcb_surface, VK_EXT_metal_surface, or VK_KHR_android_surface
+```
+
 ## Technical Details
 
 - **Graphics API**: Vulkan 1.2
 - **Windowing**: Silk.NET.Windowing with GLFW backend
 - **Input**: Silk.NET.Input
 - **Math**: Silk.NET.Maths and System.Numerics
+- **Platforms**: Windows, Linux, macOS, iOS, Android
 
 ## CI/CD & Testing
 
