@@ -1,0 +1,13 @@
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.csproj.AssemblyReference.cache
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.AssemblyInfoInputs.cache
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.AssemblyInfo.cs
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.csproj.CoreCompileInputs.cache
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.sourcelink.json
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/bin/Debug/net9.0/EvokerEngine.Core.deps.json
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/bin/Debug/net9.0/EvokerEngine.Core.dll
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/bin/Debug/net9.0/EvokerEngine.Core.pdb
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.dll
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/refint/EvokerEngine.Core.dll
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/EvokerEngine.Core.pdb
+/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Core/obj/Debug/net9.0/ref/EvokerEngine.Core.dll
