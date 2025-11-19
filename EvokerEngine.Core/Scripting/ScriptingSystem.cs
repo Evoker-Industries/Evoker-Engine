@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EvokerEngine.ECS;
 
 namespace EvokerEngine.Scripting;
 
@@ -8,6 +9,20 @@ namespace EvokerEngine.Scripting;
 /// </summary>
 public abstract class Script
 {
+    /// <summary>
+    /// The entity this script is attached to
+    /// </summary>
+    public Entity? Entity { get; internal set; }
+
+    /// <summary>
+    /// Get a component from the entity
+    /// </summary>
+    protected T? GetComponent<T>() where T : Component
+    {
+        if (Entity == null) return null;
+        return Scene.Scene.GetActiveScene()?.Registry.GetComponent<T>(Entity.Value);
+    }
+
     /// <summary>
     /// Called when the script is first initialized
     /// </summary>
@@ -42,6 +57,40 @@ public abstract class Script
     /// Called when exiting a trigger (if collider attached)
     /// </summary>
     public virtual void OnTriggerExit(Collider other) { }
+}
+
+/// <summary>
+/// Component that holds a script instance
+/// </summary>
+public class ScriptComponent : Component
+{
+    public Script? Script { get; set; }
+    private bool _started = false;
+
+    public void Update(float deltaTime)
+    {
+        if (Script == null) return;
+
+        if (!_started)
+        {
+            Script.Entity = Entity;
+            Script.OnStart();
+            _started = true;
+        }
+
+        Script.OnUpdate(deltaTime);
+    }
+
+    public void FixedUpdate(float fixedDeltaTime)
+    {
+        Script?.OnFixedUpdate(fixedDeltaTime);
+    }
+
+    public void Destroy()
+    {
+        Script?.OnDestroy();
+        Script = null;
+    }
 }
 
 /// <summary>
@@ -80,30 +129,29 @@ public class ScriptManager
     private static ScriptManager? _instance;
     public static ScriptManager Instance => _instance ??= new ScriptManager();
 
-    private readonly List<Script> _scripts = new();
+    private readonly List<ScriptComponent> _scriptComponents = new();
 
     private ScriptManager() { }
 
     /// <summary>
-    /// Register a script
+    /// Register a script component
     /// </summary>
-    public void RegisterScript(Script script)
+    public void RegisterScriptComponent(ScriptComponent component)
     {
-        if (!_scripts.Contains(script))
+        if (!_scriptComponents.Contains(component))
         {
-            _scripts.Add(script);
-            script.OnStart();
+            _scriptComponents.Add(component);
         }
     }
 
     /// <summary>
-    /// Unregister a script
+    /// Unregister a script component
     /// </summary>
-    public void UnregisterScript(Script script)
+    public void UnregisterScriptComponent(ScriptComponent component)
     {
-        if (_scripts.Remove(script))
+        if (_scriptComponents.Remove(component))
         {
-            script.OnDestroy();
+            component.Destroy();
         }
     }
 
@@ -112,11 +160,11 @@ public class ScriptManager
     /// </summary>
     public void Update(float deltaTime)
     {
-        foreach (var script in _scripts)
+        foreach (var component in _scriptComponents)
         {
             try
             {
-                script.OnUpdate(deltaTime);
+                component.Update(deltaTime);
             }
             catch (Exception ex)
             {
@@ -130,11 +178,11 @@ public class ScriptManager
     /// </summary>
     public void FixedUpdate(float fixedDeltaTime)
     {
-        foreach (var script in _scripts)
+        foreach (var component in _scriptComponents)
         {
             try
             {
-                script.OnFixedUpdate(fixedDeltaTime);
+                component.FixedUpdate(fixedDeltaTime);
             }
             catch (Exception ex)
             {
@@ -148,11 +196,11 @@ public class ScriptManager
     /// </summary>
     public void Clear()
     {
-        foreach (var script in _scripts)
+        foreach (var component in _scriptComponents)
         {
-            script.OnDestroy();
+            component.Destroy();
         }
-        _scripts.Clear();
+        _scriptComponents.Clear();
     }
 }
 
@@ -204,5 +252,45 @@ public class ExampleScript : Script
     public override void OnDestroy()
     {
         Core.Logger.Info("ExampleScript destroyed");
+    }
+}
+
+/// <summary>
+/// Example movement script
+/// </summary>
+public class SimpleMovementScript : Script
+{
+    public float Speed { get; set; } = 5.0f;
+
+    public override void OnUpdate(float deltaTime)
+    {
+        var transform = GetComponent<TransformComponent>();
+        if (transform == null) return;
+
+        // Simple WASD movement
+        if (Core.Input.IsKeyPressed(Silk.NET.Input.Key.W))
+            transform.Position += new System.Numerics.Vector3(0, 0, -Speed * deltaTime);
+        if (Core.Input.IsKeyPressed(Silk.NET.Input.Key.S))
+            transform.Position += new System.Numerics.Vector3(0, 0, Speed * deltaTime);
+        if (Core.Input.IsKeyPressed(Silk.NET.Input.Key.A))
+            transform.Position += new System.Numerics.Vector3(-Speed * deltaTime, 0, 0);
+        if (Core.Input.IsKeyPressed(Silk.NET.Input.Key.D))
+            transform.Position += new System.Numerics.Vector3(Speed * deltaTime, 0, 0);
+    }
+}
+
+/// <summary>
+/// Example rotation script
+/// </summary>
+public class SimpleRotationScript : Script
+{
+    public float RotationSpeed { get; set; } = 45.0f; // degrees per second
+
+    public override void OnUpdate(float deltaTime)
+    {
+        var transform = GetComponent<TransformComponent>();
+        if (transform == null) return;
+
+        transform.Rotation += new System.Numerics.Vector3(0, RotationSpeed * deltaTime, 0);
     }
 }

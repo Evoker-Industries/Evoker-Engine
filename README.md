@@ -533,20 +533,24 @@ docfx docfx.json --serve
 
 ## Future Enhancements
 
-### In Progress / Framework Ready
+### Implemented
 - ✅ **Documentation System** - MkDocs + DocFX deployed to GitHub Pages
-- ✅ **Model Loading Framework** - GLTF, GLB, OBJ support (stub implementation)
-- ✅ **Texture Loading Framework** - PNG, JPG support (stub implementation)
-- ✅ **Shader Compilation Framework** - SPIR-V compilation (stub implementation)
-- ✅ **Physics System Framework** - Rigidbody, colliders, raycast (stub implementation)
-- ✅ **Audio System Framework** - Audio clips, sources, 3D audio (stub implementation)
-- ✅ **Scripting Support Framework** - Script base class and manager (stub implementation)
+- ✅ **Texture Loading** - PNG, JPG, BMP, TGA support with StbImageSharp
+- ✅ **Shader Loading** - Load GLSL shader files from disk
+- ✅ **Mesh Generation** - Cube, plane, and sphere primitive generation
+- ✅ **Scripting System** - Script base class with ECS integration, example scripts
+- ✅ **Script Components** - ScriptComponent for attaching scripts to entities
+
+### Framework Ready (Stubs)
+- ⚙️ **Model Loading Framework** - GLTF, GLB, OBJ support (parser implementation needed)
+- ⚙️ **Shader Compilation** - SPIR-V compilation (compiler integration needed)
+- ⚙️ **Physics System Framework** - Rigidbody, colliders, raycast (physics engine integration needed)
+- ⚙️ **Audio System Framework** - Audio clips, sources, 3D audio (audio library integration needed)
 
 ### Planned
 - Complete Vulkan rendering pipeline implementation
 - Full model loading implementation (GLTF, GLB, OBJ parsers)
-- Full texture loading implementation (PNG, JPG, BMP, TGA)
-- Shader compilation to SPIR-V
+- Shader compilation to SPIR-V (glslang or shaderc integration)
 - Physics engine integration (Bullet, Jolt, or custom)
 - Audio engine integration (OpenAL or FMOD)
 - C# scripting hot reload
