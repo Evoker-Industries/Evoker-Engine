@@ -12,6 +12,8 @@ jobs:
   build-and-test:
     name: Build and Test
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -53,6 +55,8 @@ jobs:
   build-mobile:
     name: Build Mobile Platforms
     runs-on: macos-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         platform: [ios, android]
@@ -91,6 +95,8 @@ jobs:
   code-quality:
     name: Code Quality Checks
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
     - name: Checkout code
@@ -155,6 +161,8 @@ jobs:
   build-documentation:
     name: Build Documentation
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
     - name: Checkout code
@@ -184,6 +192,8 @@ jobs:
     name: Ready to Merge
     needs: [build-and-test, build-mobile, code-quality, security-scan, build-documentation]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: always()
 
     steps:
