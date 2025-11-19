@@ -43,6 +43,51 @@ jobs:
         name: test-results-${{ matrix.os }}
         path: TestResults-${{ matrix.os }}/*.trx
 
+    - name: Upload HTML test report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-report-html-${{ matrix.os }}
+        path: TestResults-${{ matrix.os }}/TestResults.html
+
+  build-mobile:
+    name: Build Mobile Platforms
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        platform: [ios, android]
+      fail-fast: false
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Install iOS workload
+      if: matrix.platform == 'ios'
+      run: dotnet workload install ios
+
+    - name: Install Android workload
+      if: matrix.platform == 'android'
+      run: dotnet workload install android
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build for iOS
+      if: matrix.platform == 'ios'
+      run: dotnet build EvokerEngine.Core/EvokerEngine.Core.csproj --configuration Release --framework net9.0-ios -p:BuildForMobile=true
+      continue-on-error: true
+
+    - name: Build for Android
+      if: matrix.platform == 'android'
+      run: dotnet build EvokerEngine.Core/EvokerEngine.Core.csproj --configuration Release --framework net9.0-android -p:BuildForMobile=true
+      continue-on-error: true
+
   code-quality:
     name: Code Quality Checks
     runs-on: ubuntu-latest
@@ -137,7 +182,7 @@ jobs:
 
   merge-ready:
     name: Ready to Merge
-    needs: [build-and-test, code-quality, security-scan, build-documentation]
+    needs: [build-and-test, build-mobile, code-quality, security-scan, build-documentation]
     runs-on: ubuntu-latest
     if: always()
 
@@ -149,12 +194,15 @@ jobs:
            [ "${{ needs.security-scan.result }}" = "success" ] && \
            [ "${{ needs.build-documentation.result }}" = "success" ]; then
           echo "✅ All checks passed! Ready to merge."
+          echo "Note: Mobile builds status: ${{ needs.build-mobile.result }}"
           exit 0
         else
           echo "❌ Some checks failed. Please review and fix issues."
           echo "Build and Test: ${{ needs.build-and-test.result }}"
+          echo "Mobile Builds: ${{ needs.build-mobile.result }}"
           echo "Code Quality: ${{ needs.code-quality.result }}"
           echo "Security Scan: ${{ needs.security-scan.result }}"
           echo "Documentation: ${{ needs.build-documentation.result }}"
           exit 1
         fi
+
