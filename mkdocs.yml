@@ -38,6 +38,7 @@ theme:
 plugins:
   - search
   - autorefs
+  - offline
 
 markdown_extensions:
   - pymdownx.highlight:
