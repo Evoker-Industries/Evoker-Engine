@@ -70,12 +70,10 @@ EvokerEngine.Core/
 │   ├── VulkanContext.cs   # Vulkan initialization
 │   └── VulkanSwapchain.cs # Swapchain management
 ├── Input/             # Input system
-│   └── Input.cs       # Input polling
-├── Events/            # Event system
-│   └── Event.cs       # Event definitions
-├── Input/             # Input system
 │   ├── Input.cs       # Keyboard/Mouse input polling
 │   └── GamepadInput.cs # Controller/Gamepad input
+├── Events/            # Event system
+│   └── Event.cs       # Event definitions
 ├── ECS/               # Entity Component System
 │   ├── Entity.cs      # Entity definition
 │   ├── Component.cs   # Component base class
@@ -86,6 +84,16 @@ EvokerEngine.Core/
 │   └── Camera.cs      # Camera system
 └── Resources/         # Resource management
     └── ResourceManager.cs # Resource loading
+
+EvokerEngine.Tests/    # Unit tests
+├── LoggerTests.cs
+├── TimeTests.cs
+├── LayerStackTests.cs
+├── EventTests.cs
+├── ECSTests.cs
+├── ComponentTests.cs
+├── SceneTests.cs
+└── ResourceManagerTests.cs
 ```
 
 ## Building
@@ -100,6 +108,34 @@ EvokerEngine.Core/
 ```bash
 dotnet build
 ```
+
+### Run Tests
+
+The project includes comprehensive unit tests covering all core engine features.
+
+```bash
+# Run all tests
+dotnet test
+
+# Run tests with detailed output
+dotnet test --logger "console;verbosity=detailed"
+
+# Run tests for a specific project
+cd EvokerEngine.Tests
+dotnet test
+```
+
+**Test Coverage:**
+- Logger system (2 tests)
+- Time management (5 tests)
+- Layer stack (4 tests)
+- Event system (10 tests)
+- ECS (Entity Component System) (8 tests)
+- Components (Transform, Camera, MeshRenderer) (7 tests)
+- Scene management and Camera (13 tests)
+- Resource management (17 tests)
+
+**Total: 66 tests** ✅
 
 ### Run the Demo
 

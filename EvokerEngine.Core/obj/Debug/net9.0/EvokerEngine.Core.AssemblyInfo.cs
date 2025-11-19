@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EvokerEngine.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+617c7b009e2c6ab28a5a98ec51dc66b83421c1ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3f5a30dadeedaf1cbaa7591f9175cffa990eaae")]
 [assembly: System.Reflection.AssemblyProductAttribute("EvokerEngine.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EvokerEngine.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

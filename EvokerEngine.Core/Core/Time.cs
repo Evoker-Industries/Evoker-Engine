@@ -42,14 +42,20 @@ public static class Time
     /// </summary>
     public static float FPS => _deltaTime > 0f ? 1f / _deltaTime : 0f;
 
-    internal static void Update()
+    /// <summary>
+    /// Update time - called internally by the engine, but can be called manually for testing
+    /// </summary>
+    public static void Update()
     {
         var currentTime = TotalTime;
         _deltaTime = currentTime - _lastFrameTime;
         _lastFrameTime = currentTime;
     }
 
-    internal static void Reset()
+    /// <summary>
+    /// Reset time - called internally by the engine, but can be called manually for testing
+    /// </summary>
+    public static void Reset()
     {
         _stopwatch.Restart();
         _lastFrameTime = 0f;
