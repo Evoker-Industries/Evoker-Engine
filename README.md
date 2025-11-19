@@ -540,18 +540,19 @@ docfx docfx.json --serve
 - ✅ **Mesh Generation** - Cube, plane, and sphere primitive generation
 - ✅ **Scripting System** - Script base class with ECS integration, example scripts
 - ✅ **Script Components** - ScriptComponent for attaching scripts to entities
+- ✅ **Physics System** - Complete with rigidbodies, colliders (Box, Sphere), collision detection, raycast
+- ✅ **Audio System** - Full OpenAL integration with WAV playback, 3D audio positioning
 
 ### Framework Ready (Stubs)
 - ⚙️ **Model Loading Framework** - GLTF, GLB, OBJ support (parser implementation needed)
 - ⚙️ **Shader Compilation** - SPIR-V compilation (compiler integration needed)
-- ⚙️ **Physics System Framework** - Rigidbody, colliders, raycast (physics engine integration needed)
-- ⚙️ **Audio System Framework** - Audio clips, sources, 3D audio (audio library integration needed)
+- ⚙️ **Advanced Audio Formats** - MP3, OGG support (codec libraries needed)
 
 ### Planned
 - Complete Vulkan rendering pipeline implementation
 - Full model loading implementation (GLTF, GLB, OBJ parsers)
 - Shader compilation to SPIR-V (glslang or shaderc integration)
-- Physics engine integration (Bullet, Jolt, or custom)
-- Audio engine integration (OpenAL or FMOD)
+- MP3/OGG audio codec support
+- Advanced physics features (constraints, character controller)
 - C# scripting hot reload
 - Visual editor tools
