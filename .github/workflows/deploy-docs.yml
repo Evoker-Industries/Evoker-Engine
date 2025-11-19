@@ -55,23 +55,7 @@ jobs:
           mkdir -p _site/api
           cp -r _site/api/* _site/api/ 2>/dev/null || true
 
-      - name: Create index redirect
-        run: |
-          # Create a simple index.html that redirects to the docs
-          cat > _site/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="utf-8">
-            <title>Redirecting...</title>
-            <meta http-equiv="refresh" content="0; url=./index.html">
-            <link rel="canonical" href="./index.html">
-          </head>
-          <body>
-            <p>Redirecting to <a href="./index.html">documentation</a>...</p>
-          </body>
-          </html>
-          EOF
+
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
