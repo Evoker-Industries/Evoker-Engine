@@ -71,6 +71,7 @@ nav:
     - 2D Games: game-dev/2d-games.md
     - 3D Games: game-dev/3d-games.md
     - Resource Loading: game-dev/resource-loading.md
+    - Physics & Audio: game-dev/physics-audio.md
     - Input Handling: game-dev/input-handling.md
     - Scene Management: game-dev/scene-management.md
   - Core Systems:
