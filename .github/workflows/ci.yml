@@ -1,0 +1,158 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        dotnet-version: ['9.0.x']
+      fail-fast: false
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run tests
+      run: dotnet test --configuration Release --no-build --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.os }}"
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-${{ matrix.os }}
+        path: TestResults-${{ matrix.os }}/*.trx
+
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run tests with coverage
+      run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+    - name: Code Coverage Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: '**/coverage.cobertura.xml'
+        badge: true
+        fail_below_min: false
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: false
+        indicators: true
+        output: both
+        thresholds: '60 80'
+      continue-on-error: true
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: csharp
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+  build-documentation:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate README
+      run: |
+        if [ ! -f README.md ]; then
+          echo "README.md is missing!"
+          exit 1
+        fi
+        echo "README.md found and validated"
+
+    - name: Check for documentation
+      run: |
+        echo "Checking documentation completeness..."
+        if grep -q "## Features" README.md && \
+           grep -q "## Building" README.md && \
+           grep -q "## Usage Example" README.md; then
+          echo "Documentation appears complete"
+        else
+          echo "Warning: Documentation may be incomplete"
+          exit 1
+        fi
+
+  merge-ready:
+    name: Ready to Merge
+    needs: [build-and-test, code-quality, security-scan, build-documentation]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+    - name: Check if all jobs succeeded
+      run: |
+        if [ "${{ needs.build-and-test.result }}" = "success" ] && \
+           [ "${{ needs.code-quality.result }}" = "success" ] && \
+           [ "${{ needs.security-scan.result }}" = "success" ] && \
+           [ "${{ needs.build-documentation.result }}" = "success" ]; then
+          echo "✅ All checks passed! Ready to merge."
+          exit 0
+        else
+          echo "❌ Some checks failed. Please review and fix issues."
+          echo "Build and Test: ${{ needs.build-and-test.result }}"
+          echo "Code Quality: ${{ needs.code-quality.result }}"
+          echo "Security Scan: ${{ needs.security-scan.result }}"
+          echo "Documentation: ${{ needs.build-documentation.result }}"
+          exit 1
+        fi

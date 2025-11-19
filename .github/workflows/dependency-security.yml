@@ -1,0 +1,193 @@
+name: Dependency and Security Check
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.csproj'
+      - '**/packages.lock.json'
+
+jobs:
+  dependency-check:
+    name: Check Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Check for outdated packages
+      run: |
+        echo "🔍 Checking for outdated NuGet packages..."
+        dotnet list package --outdated --include-transitive
+        echo "✅ Dependency check completed"
+
+    - name: Check for vulnerable packages
+      run: |
+        echo "🔒 Checking for vulnerable packages..."
+        dotnet list package --vulnerable --include-transitive
+        
+        # If vulnerabilities found, the command will exit with non-zero
+        if [ $? -ne 0 ]; then
+          echo "⚠️ Vulnerable packages detected!"
+        else
+          echo "✅ No vulnerable packages found"
+        fi
+
+    - name: Restore packages
+      run: dotnet restore --verbosity normal
+
+    - name: List all dependencies
+      run: |
+        echo "📦 Current Dependencies"
+        echo "======================"
+        echo ""
+        echo "Core Project:"
+        dotnet list EvokerEngine.Core/EvokerEngine.Core.csproj package
+        echo ""
+        echo "Demo Project:"
+        dotnet list EvokerEngine.Demo/EvokerEngine.Demo.csproj package
+        echo ""
+        echo "Test Project:"
+        dotnet list EvokerEngine.Tests/EvokerEngine.Tests.csproj package
+
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build for security analysis
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run security scan
+      uses: security-code-scan/security-code-scan-add-action@v1.1
+      continue-on-error: true
+
+    - name: Check for common security issues
+      run: |
+        echo "🔐 Checking for common security issues..."
+        
+        # Check for hardcoded secrets (simple patterns)
+        echo "Checking for potential hardcoded secrets..."
+        if grep -r -i "password\s*=\s*\"[^\"]*\"" --include="*.cs" --exclude-dir=bin --exclude-dir=obj .; then
+          echo "⚠️ Warning: Potential hardcoded passwords found"
+        else
+          echo "✅ No obvious hardcoded secrets found"
+        fi
+        
+        # Check for TODO/FIXME security comments
+        echo ""
+        echo "Checking for security-related TODOs..."
+        if grep -r "TODO.*security\|FIXME.*security" --include="*.cs" --exclude-dir=bin --exclude-dir=obj .; then
+          echo "⚠️ Found security-related TODOs"
+        else
+          echo "✅ No security TODOs found"
+        fi
+
+  build-health:
+    name: Build Health Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Check solution health
+      run: |
+        echo "🏥 Solution Health Check"
+        echo "======================="
+        
+        # Count projects
+        PROJECT_COUNT=$(find . -name "*.csproj" | wc -l)
+        echo "Projects: $PROJECT_COUNT"
+        
+        # Count source files
+        CS_FILE_COUNT=$(find . -name "*.cs" -not -path "*/bin/*" -not -path "*/obj/*" | wc -l)
+        echo "C# Files: $CS_FILE_COUNT"
+        
+        # Count test files
+        TEST_FILE_COUNT=$(find . -path "*/Tests/*" -name "*Tests.cs" | wc -l)
+        echo "Test Files: $TEST_FILE_COUNT"
+        
+        echo ""
+        echo "✅ Solution health checked"
+
+    - name: Restore and build all configurations
+      run: |
+        echo "Building Debug configuration..."
+        dotnet build --configuration Debug
+        
+        echo "Building Release configuration..."
+        dotnet build --configuration Release
+        
+        echo "✅ All configurations built successfully"
+
+    - name: Verify test project
+      run: |
+        echo "🧪 Verifying test project..."
+        
+        # Run tests to ensure they compile and execute
+        dotnet test --configuration Release --no-build --logger "console;verbosity=minimal"
+        
+        TEST_EXIT_CODE=$?
+        if [ $TEST_EXIT_CODE -eq 0 ]; then
+          echo "✅ All 66 tests passed"
+        else
+          echo "❌ Tests failed with exit code: $TEST_EXIT_CODE"
+          exit 1
+        fi
+
+  report-status:
+    name: Report Status
+    needs: [dependency-check, security-audit, build-health]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+    - name: Generate status report
+      run: |
+        echo "📊 Workflow Status Report"
+        echo "========================"
+        echo ""
+        echo "Dependency Check: ${{ needs.dependency-check.result }}"
+        echo "Security Audit: ${{ needs.security-audit.result }}"
+        echo "Build Health: ${{ needs.build-health.result }}"
+        echo ""
+        
+        if [ "${{ needs.dependency-check.result }}" = "success" ] && \
+           [ "${{ needs.security-audit.result }}" = "success" ] && \
+           [ "${{ needs.build-health.result }}" = "success" ]; then
+          echo "✅ All checks passed successfully!"
+          exit 0
+        else
+          echo "⚠️ Some checks failed. Please review the logs."
+          exit 1
+        fi

@@ -930,7 +930,7 @@
     ]
   },
   "packageFolders": {
-    "/home/runner/.nuget/packages/": {}
+    "/home/runner/work/Evoker-Engine/.codeql-scratch/dbs/csharp/working/packages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -938,7 +938,7 @@
       "projectUniqueName": "/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Demo/EvokerEngine.Demo.csproj",
       "projectName": "EvokerEngine.Demo",
       "projectPath": "/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Demo/EvokerEngine.Demo.csproj",
-      "packagesPath": "/home/runner/.nuget/packages/",
+      "packagesPath": "/home/runner/work/Evoker-Engine/.codeql-scratch/dbs/csharp/working/packages",
       "outputPath": "/home/runner/work/Evoker-Engine/Evoker-Engine/EvokerEngine.Demo/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
@@ -986,6 +986,20 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[9.0.11, 9.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.linux-x64",
+            "version": "[9.0.11, 9.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[9.0.11, 9.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

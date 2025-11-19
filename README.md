@@ -1,5 +1,9 @@
 # Evoker-Engine
 
+[![CI/CD Pipeline](https://github.com/evokerking1/Evoker-Engine/actions/workflows/ci.yml/badge.svg)](https://github.com/evokerking1/Evoker-Engine/actions/workflows/ci.yml)
+[![PR Validation](https://github.com/evokerking1/Evoker-Engine/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/evokerking1/Evoker-Engine/actions/workflows/pr-validation.yml)
+[![Security](https://github.com/evokerking1/Evoker-Engine/actions/workflows/dependency-security.yml/badge.svg)](https://github.com/evokerking1/Evoker-Engine/actions/workflows/dependency-security.yml)
+
 A complete C# game engine with Vulkan rendering support using Silk.NET.
 
 ## Features
@@ -289,6 +293,43 @@ var mesh = resourceManager.Load<Mesh>("MyMesh");
 - **Windowing**: Silk.NET.Windowing with GLFW backend
 - **Input**: Silk.NET.Input
 - **Math**: Silk.NET.Maths and System.Numerics
+
+## CI/CD & Testing
+
+The project uses GitHub Actions for continuous integration and automated testing:
+
+### Automated Workflows
+
+1. **CI/CD Pipeline** - Runs on every push and PR
+   - Multi-platform builds (Linux, Windows, macOS)
+   - Runs all 66 unit tests
+   - Code quality checks with coverage reporting
+   - CodeQL security scanning
+   - Documentation validation
+
+2. **Pull Request Validation** - Enhanced checks for PRs
+   - PR title validation
+   - Merge conflict detection
+   - Comprehensive test execution
+   - Performance checks
+   - Automatic status comments
+
+3. **Dependency & Security** - Daily security audits
+   - Checks for outdated packages
+   - Scans for vulnerable dependencies
+   - Security code analysis
+   - Build health monitoring
+
+### Branch Protection
+
+The `main` branch is protected with required status checks:
+- All tests must pass (66/66)
+- Builds must succeed on all platforms
+- Code quality checks must pass
+- Security scans must complete
+- PR must be up to date with base branch
+
+See [.github/workflows/README.md](.github/workflows/README.md) for detailed workflow documentation.
 
 ## Dependencies
 
