@@ -48,6 +48,7 @@ A complete C# game engine with Vulkan rendering support using Silk.NET.
   - TransformComponent: Position, rotation, and scale
   - MeshRendererComponent: Mesh and material assignment
   - CameraComponent: Camera properties and projection matrices
+  - InventoryComponent: Entity inventory management
 
 ### Scene Management
 
@@ -62,6 +63,62 @@ A complete C# game engine with Vulkan rendering support using Silk.NET.
   - Textures: Image data management
   - Shaders: Vertex and fragment shader programs
   - Meshes: Vertex and index data
+
+### Inventory System
+
+- **Item System**: Base item class with ResourceKey IDs
+- **ItemStack**: Handle stackable items with merge/split
+- **Inventory**: Full inventory with weight limits, sorting, events
+- **Item Rarity**: Common, Uncommon, Rare, Epic, Legendary, Mythic
+
+### Block System
+
+- **Block Base Class**: namespace:key identifiers for all blocks
+- **Block Properties**: Hardness, light level, transparency, solidity
+- **Block States**: Custom state management
+- **Block Events**: OnPlaced, OnBroken, OnInteract, OnUpdate
+- **BlockRegistry**: Central block registration and management
+- **Drop System**: Configurable block drops
+
+### Crafting System
+
+- **Recipe Types**:
+  - ShapelessRecipe: Order-independent crafting
+  - ShapedRecipe: Pattern-based (3x3 grid)
+  - SmeltingRecipe: Furnace/smelting recipes
+  - Custom recipe types: Extend Recipe base class
+- **RecipeRegistry**: Register and query recipes
+- **Ingredients**: Item requirements with quantities
+- **Recipe Results**: Output items with properties
+
+### Modding System
+
+- **Mod Base Class**: Easy mod creation with lifecycle hooks
+- **ModLoader**: Automatic mod discovery and loading
+- **Dependency Resolution**: Topological sort for mod dependencies
+- **ModAPI**: Helper API for registering content
+- **Hot Loading**: Load mods from DLL files or directories
+- **Mod Events**: OnLoad, OnInitialize, OnPostInitialize, OnUpdate, OnUnload
+
+### Dimension/World System
+
+- **Dimension Class**: Full world/dimension support
+- **Built-in Dimensions**: Overworld, Nether, End
+- **Custom Dimensions**: Easy creation of new dimensions
+- **Dimension Properties**:
+  - Height limits, coordinate scaling, gravity
+  - Sky/ceiling configuration, ambient light
+  - Environment settings (water evaporation, lava behavior)
+  - Fog and sky colors
+- **DimensionRegistry**: Manage all dimensions
+- **Coordinate Conversion**: Between dimensions with different scales
+
+### ResourceKey System
+
+- **Namespace:Key Format**: `namespace:key` identifiers everywhere
+- **Automatic Parsing**: "modname:itemname" → ResourceKey
+- **Validation**: Ensures valid format
+- **Used Throughout**: Blocks, items, recipes, dimensions, mods
 
 ## Architecture
 
@@ -90,8 +147,25 @@ EvokerEngine.Core/
 ├── Scene/             # Scene management
 │   ├── Scene.cs       # Scene definition
 │   └── Camera.cs      # Camera system
-└── Resources/         # Resource management
-    └── ResourceManager.cs # Resource loading
+├── Resources/         # Resource management
+│   └── ResourceManager.cs # Resource loading
+├── Inventory/         # Inventory system
+│   ├── Item.cs        # Base item class
+│   ├── ItemStack.cs   # Stackable items
+│   └── Inventory.cs   # Inventory management
+├── Blocks/            # Block system
+│   ├── Block.cs       # Base block class
+│   └── BlockRegistry.cs # Block management
+├── Crafting/          # Recipe system
+│   ├── Recipe.cs      # Recipe types
+│   └── RecipeRegistry.cs # Recipe management
+├── Modding/           # Mod support
+│   ├── Mod.cs         # Base mod class
+│   ├── ModLoader.cs   # Mod loading
+│   └── ModAPI.cs      # Helper API
+└── World/             # Dimensions
+    ├── Dimension.cs   # Dimension class
+    └── DimensionRegistry.cs # Dimension management
 
 EvokerEngine.Tests/    # Unit tests
 ├── LoggerTests.cs
