@@ -1,0 +1,90 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
+
+      - name: Install MkDocs and dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install DocFX
+        run: |
+          dotnet tool install -g docfx
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Restore .NET dependencies
+        run: dotnet restore
+
+      - name: Build MkDocs documentation
+        run: mkdocs build --site-dir _site
+
+      - name: Build DocFX API documentation
+        run: |
+          docfx docfx.json
+          # Copy DocFX output to MkDocs site under /api path
+          mkdir -p _site/api
+          cp -r _site/api/* _site/api/ 2>/dev/null || true
+
+      - name: Create index redirect
+        run: |
+          # Create a simple index.html that redirects to the docs
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>Redirecting...</title>
+            <meta http-equiv="refresh" content="0; url=./index.html">
+            <link rel="canonical" href="./index.html">
+          </head>
+          <body>
+            <p>Redirecting to <a href="./index.html">documentation</a>...</p>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-docs
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

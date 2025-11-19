@@ -1,0 +1,101 @@
+site_name: Evoker Engine Documentation
+site_description: A complete C# game engine with Vulkan rendering support
+site_author: evokerking1
+site_url: https://evokerking1.github.io/Evoker-Engine/
+
+repo_name: evokerking1/Evoker-Engine
+repo_url: https://github.com/evokerking1/Evoker-Engine
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - navigation.footer
+
+plugins:
+  - search
+  - autorefs
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - Project Structure: getting-started/project-structure.md
+  - Game Development:
+    - Overview: game-dev/overview.md
+    - 2D Games: game-dev/2d-games.md
+    - 3D Games: game-dev/3d-games.md
+    - Input Handling: game-dev/input-handling.md
+    - Scene Management: game-dev/scene-management.md
+  - Core Systems:
+    - Application Framework: core/application.md
+    - Layer System: core/layers.md
+    - Event System: core/events.md
+    - ECS (Entity Component System): core/ecs.md
+  - Graphics:
+    - Vulkan Rendering: graphics/vulkan.md
+    - Rendering Pipeline: graphics/rendering-pipeline.md
+    - Materials & Shaders: graphics/materials.md
+  - Game Systems:
+    - Inventory System: systems/inventory.md
+    - Block System: systems/blocks.md
+    - Crafting System: systems/crafting.md
+    - Dimension System: systems/dimensions.md
+  - Modding:
+    - Creating Mods: modding/creating-mods.md
+    - Mod API Reference: modding/api-reference.md
+    - Examples: modding/examples.md
+  - API Reference:
+    - Overview: api/overview.md
+    - API Documentation: api/reference.md
+  - Contributing: contributing.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/evokerking1/Evoker-Engine
