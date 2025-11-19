@@ -11,6 +11,7 @@ public class Scene
 {
     private readonly ECSRegistry _registry = new();
     private readonly List<Entity> _rootEntities = new();
+    private static Scene? _activeScene;
     
     public string Name { get; set; }
     public ECSRegistry Registry => _registry;
@@ -18,7 +19,19 @@ public class Scene
     public Scene(string name = "Untitled Scene")
     {
         Name = name;
+        if (_activeScene == null)
+            _activeScene = this;
     }
+
+    /// <summary>
+    /// Get the active scene
+    /// </summary>
+    public static Scene? GetActiveScene() => _activeScene;
+
+    /// <summary>
+    /// Set the active scene
+    /// </summary>
+    public static void SetActiveScene(Scene scene) => _activeScene = scene;
 
     /// <summary>
     /// Create an entity in the scene

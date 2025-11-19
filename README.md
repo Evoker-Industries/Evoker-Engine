@@ -508,13 +508,51 @@ See [.github/workflows/README.md](.github/workflows/README.md) for detailed work
 
 This project is open source.
 
+## Documentation
+
+📖 **[Full Documentation](https://evokerking1.github.io/Evoker-Engine/)** - Complete guides and API reference
+
+- **Getting Started** - Installation, quick start, and project structure
+- **Game Development Guides** - 2D and 3D game creation tutorials
+- **API Reference** - Complete API documentation with DocFX
+- **Modding Guide** - Create mods and extend the engine
+
+### Building the Documentation Locally
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Build MkDocs documentation
+mkdocs serve
+
+# Build API documentation (requires DocFX)
+dotnet tool install -g docfx
+docfx docfx.json --serve
+```
+
 ## Future Enhancements
 
+### Implemented
+- ✅ **Documentation System** - MkDocs + DocFX deployed to GitHub Pages
+- ✅ **Texture Loading** - PNG, JPG, BMP, TGA support with StbImageSharp
+- ✅ **Shader Loading** - Load GLSL shader files from disk
+- ✅ **Mesh Generation** - Cube, plane, and sphere primitive generation
+- ✅ **Scripting System** - Script base class with ECS integration, example scripts
+- ✅ **Script Components** - ScriptComponent for attaching scripts to entities
+- ✅ **Physics System** - Complete with rigidbodies, colliders (Box, Sphere), collision detection, raycast
+- ✅ **Audio System** - Full OpenAL integration with WAV playback, 3D audio positioning
+
+### Framework Ready (Stubs)
+- ⚙️ **Model Loading Framework** - GLTF, GLB, OBJ support (parser implementation needed)
+- ⚙️ **Shader Compilation** - SPIR-V compilation (compiler integration needed)
+- ⚙️ **Advanced Audio Formats** - MP3, OGG support (codec libraries needed)
+
+### Planned
 - Complete Vulkan rendering pipeline implementation
-- Model loading (GLTF, OBJ)
-- Texture loading (PNG, JPG)
-- Shader compilation
-- Physics system integration
-- Audio system
-- Scripting support
-- Editor tools
+- Full model loading implementation (GLTF, GLB, OBJ parsers)
+- Shader compilation to SPIR-V (glslang or shaderc integration)
+- MP3/OGG audio codec support
+- Advanced physics features (constraints, character controller)
+- C# scripting hot reload
+- Visual editor tools

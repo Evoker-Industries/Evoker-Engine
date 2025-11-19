@@ -45,3 +45,9 @@ bld/
 # OS
 .DS_Store
 Thumbs.db
+
+# Documentation
+site/
+_site/
+api-docs/api/
+
