@@ -72,23 +72,19 @@ jobs:
         dotnet-version: '9.0.x'
 
     - name: Install iOS workload
-      if: matrix.platform == 'ios'
       run: dotnet workload install ios
 
     - name: Install Android workload
-      if: matrix.platform == 'android'
       run: dotnet workload install android
 
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build for iOS
-      if: matrix.platform == 'ios'
       run: dotnet build EvokerEngine.Core/EvokerEngine.Core.csproj --configuration Release --framework net9.0-ios -p:BuildForMobile=true
       continue-on-error: true
 
     - name: Build for Android
-      if: matrix.platform == 'android'
       run: dotnet build EvokerEngine.Core/EvokerEngine.Core.csproj --configuration Release --framework net9.0-android -p:BuildForMobile=true
       continue-on-error: true
 
