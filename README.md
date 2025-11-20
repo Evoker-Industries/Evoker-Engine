@@ -120,6 +120,35 @@ A complete C# game engine with Vulkan rendering support using Silk.NET.
 - **Validation**: Ensures valid format
 - **Used Throughout**: Blocks, items, recipes, dimensions, mods
 
+### Networking/Multiplayer System
+
+- **NetworkServer**: Host multiplayer games with TCP connections
+- **NetworkClient**: Connect to multiplayer servers
+- **NetworkingSystem**: ECS integration for multiplayer
+- **Message System**: Built-in messages for entity sync, inventory, dimensions, chat
+- **Client-Server Architecture**: Authoritative server model
+- **Entity Synchronization**: Automatic position/rotation/velocity sync
+- **Inventory Sync**: Network-aware inventory updates with ResourceKey support
+- **Dimension Sync**: Cross-dimension player teleportation
+- **Latency Tracking**: Ping/pong for network monitoring
+
+### HUD (Heads-Up Display) System
+
+- **HudManager**: Central manager with easy-to-use API
+- **HudText**: Display text with customizable fonts and colors
+- **HudImage**: Display images and sprites
+- **HudBar**: Health/progress/mana bars with fill directions
+- **HudPanel**: Container panels with borders and backgrounds
+- **HudButton**: Interactive buttons with hover/press states
+- **Helper Methods**: Quick creation of common HUD patterns
+  - Player stats (health, mana, stamina bars)
+  - Inventory displays
+  - Debug panels
+  - Minimap
+  - Crosshair
+- **Hierarchy Support**: Parent-child relationships for complex UIs
+- **Layer System**: Control rendering order
+
 ## Architecture
 
 ```
@@ -163,9 +192,20 @@ EvokerEngine.Core/
 │   ├── Mod.cs         # Base mod class
 │   ├── ModLoader.cs   # Mod loading
 │   └── ModAPI.cs      # Helper API
-└── World/             # Dimensions
-    ├── Dimension.cs   # Dimension class
-    └── DimensionRegistry.cs # Dimension management
+├── World/             # Dimensions
+│   ├── Dimension.cs   # Dimension class
+│   └── DimensionRegistry.cs # Dimension management
+├── Networking/        # Multiplayer system
+│   ├── NetworkServer.cs    # Server implementation
+│   ├── NetworkClient.cs    # Client implementation
+│   ├── NetworkConnection.cs # Connection management
+│   ├── NetworkMessage.cs   # Message base class
+│   ├── Messages.cs         # Built-in message types
+│   └── NetworkingSystem.cs # ECS integration
+└── UI/                # HUD system
+    ├── HudManager.cs      # HUD management
+    ├── HudElement.cs      # Base element class
+    └── HudComponents.cs   # HUD element types
 
 EvokerEngine.Tests/    # Unit tests
 ├── LoggerTests.cs
@@ -175,7 +215,9 @@ EvokerEngine.Tests/    # Unit tests
 ├── ECSTests.cs
 ├── ComponentTests.cs
 ├── SceneTests.cs
-└── ResourceManagerTests.cs
+├── ResourceManagerTests.cs
+├── NetworkingTests.cs
+└── HudTests.cs
 ```
 
 ## Building
@@ -217,7 +259,7 @@ dotnet build -f net9.0-ios
 
 ### Run Tests
 
-The project includes 149 comprehensive unit tests covering all core engine features.
+The project includes 218 comprehensive unit tests covering all core engine features.
 
 ```bash
 # Run all tests (automatically generates HTML report)
@@ -268,6 +310,8 @@ start EvokerEngine.Tests/TestResults/TestResults.html
 - Recipe/Crafting system (9 tests)
 - Dimension system (11 tests)
 - Modding system (10 tests)
+- Networking/Multiplayer system (15 tests)
+- HUD system (19 tests)
 - Logger system (2 tests)
 - Time management (5 tests)
 - Layer stack (4 tests)
@@ -278,8 +322,10 @@ start EvokerEngine.Tests/TestResults/TestResults.html
 - Resource management (17 tests)
 - Platform detection (8 tests)
 - Math utilities (22 tests - MathHelper, VectorHelper, QuaternionHelper, etc.)
+- Audio system (35 tests)
+- Physics system (20 tests)
 
-**Total: 149 tests** ✅
+**Total: 218 tests** ✅
 
 ### Run the Demo
 
