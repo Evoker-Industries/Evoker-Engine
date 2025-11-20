@@ -3,7 +3,7 @@ name: Deploy Documentation
 on:
   push:
     branches:
-      - main
+      - Master
   workflow_dispatch:
 
 permissions:
