@@ -30,9 +30,16 @@ public class AudioTests
         // Arrange
         var clip = new AudioClip { Name = "TestClip" };
         var nonExistentPath = "nonexistent_audio_file.wav";
+        
+        // Suppress error logging for this test since we're testing error handling
+        var originalLevel = Core.Logger.MinimumLevel;
+        Core.Logger.MinimumLevel = Core.Logger.LogLevel.Fatal;
 
         // Act
         clip.LoadFromFile(nonExistentPath);
+
+        // Restore logging level
+        Core.Logger.MinimumLevel = originalLevel;
 
         // Assert
         Assert.Equal(nonExistentPath, clip.FilePath);
@@ -45,9 +52,16 @@ public class AudioTests
         // Arrange
         var clip = new AudioClip { Name = "TestClip" };
         var wavPath = "test_audio.wav";
+        
+        // Suppress error logging for this test since file doesn't exist
+        var originalLevel = Core.Logger.MinimumLevel;
+        Core.Logger.MinimumLevel = Core.Logger.LogLevel.Fatal;
 
         // Act
         clip.LoadFromFile(wavPath);
+
+        // Restore logging level
+        Core.Logger.MinimumLevel = originalLevel;
 
         // Assert
         Assert.Equal(wavPath, clip.FilePath);
@@ -60,9 +74,16 @@ public class AudioTests
         // Arrange
         var clip = new AudioClip { Name = "TestClip" };
         var mp3Path = "test_audio.mp3";
+        
+        // Suppress error/warning logging for this test since file doesn't exist
+        var originalLevel = Core.Logger.MinimumLevel;
+        Core.Logger.MinimumLevel = Core.Logger.LogLevel.Fatal;
 
         // Act
         clip.LoadFromFile(mp3Path);
+
+        // Restore logging level
+        Core.Logger.MinimumLevel = originalLevel;
 
         // Assert
         Assert.Equal(mp3Path, clip.FilePath);
@@ -74,9 +95,16 @@ public class AudioTests
         // Arrange
         var clip = new AudioClip { Name = "TestClip" };
         var oggPath = "test_audio.ogg";
+        
+        // Suppress error/warning logging for this test since file doesn't exist
+        var originalLevel = Core.Logger.MinimumLevel;
+        Core.Logger.MinimumLevel = Core.Logger.LogLevel.Fatal;
 
         // Act
         clip.LoadFromFile(oggPath);
+
+        // Restore logging level
+        Core.Logger.MinimumLevel = originalLevel;
 
         // Assert
         Assert.Equal(oggPath, clip.FilePath);
