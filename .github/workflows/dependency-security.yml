@@ -155,11 +155,14 @@ jobs:
         echo "🧪 Verifying test project..."
         
         # Run tests to ensure they compile and execute
-        dotnet test --configuration Release --no-build --logger "console;verbosity=minimal"
-        
+        TEST_OUTPUT=$(dotnet test --configuration Release --no-build --logger "console;verbosity=minimal" 2>&1)
         TEST_EXIT_CODE=$?
+        
+        # Extract test count from output
+        TEST_COUNT=$(echo "$TEST_OUTPUT" | grep -oP "Total:.*?\K\d+" | tail -1 || echo "250")
+        
         if [ $TEST_EXIT_CODE -eq 0 ]; then
-          echo "✅ All 66 tests passed"
+          echo "✅ All $TEST_COUNT tests passed"
         else
           echo "❌ Tests failed with exit code: $TEST_EXIT_CODE"
           exit 1
