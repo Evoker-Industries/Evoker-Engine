@@ -30,7 +30,7 @@ A complete C# game engine with Vulkan rendering support using Silk.NET.
 - **Multi-platform Support**: Windows, Linux, macOS, **iOS, and Android** support with unified API
   - Automatic platform detection
   - Platform-specific Vulkan surface extensions (Win32, XCB, Metal, Android)
-  - Same API across all platformss
+  - Same API across all platforms
 
 ### Input System
 
