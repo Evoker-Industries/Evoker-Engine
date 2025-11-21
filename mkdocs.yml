@@ -84,6 +84,7 @@ nav:
     - Vulkan Rendering: graphics/vulkan.md
     - Rendering Pipeline: graphics/rendering-pipeline.md
     - Materials & Shaders: graphics/materials.md
+    - Particle System: graphics/particles.md
   - Game Systems:
     - Inventory System: systems/inventory.md
     - Block System: systems/blocks.md
