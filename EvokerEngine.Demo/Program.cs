@@ -7,6 +7,32 @@ class Program
 {
     static void Main(string[] args)
     {
+        Console.WriteLine("===========================================");
+        Console.WriteLine("       Evoker Engine - Demo Selector      ");
+        Console.WriteLine("===========================================");
+        Console.WriteLine();
+        Console.WriteLine("Select a demo:");
+        Console.WriteLine("  1 - Basic Demo (Input showcase)");
+        Console.WriteLine("  2 - Minecraft-like 3D Demo");
+        Console.WriteLine();
+        Console.Write("Enter choice (1-2): ");
+        
+        var choice = Console.ReadLine();
+        Console.WriteLine();
+        
+        if (choice == "2")
+        {
+            MinecraftGame.RunMinecraftDemo();
+        }
+        else
+        {
+            // Run basic demo
+            RunBasicDemo();
+        }
+    }
+    
+    static void RunBasicDemo()
+    {
         // Create and configure the application
         var app = new Application("Evoker Engine Demo", 1280, 720);
 

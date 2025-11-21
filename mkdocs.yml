@@ -90,6 +90,7 @@ nav:
     - Block System: systems/blocks.md
     - Crafting System: systems/crafting.md
     - Dimension System: systems/dimensions.md
+    - World Serialization: systems/world-serialization.md
   - Modding:
     - Creating Mods: modding/creating-mods.md
     - Mod API Reference: modding/api-reference.md

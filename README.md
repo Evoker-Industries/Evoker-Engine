@@ -118,6 +118,13 @@ A complete C# game engine with Vulkan rendering support using Silk.NET.
   - Fog and sky colors
 - **DimensionRegistry**: Manage all dimensions
 - **Coordinate Conversion**: Between dimensions with different scales
+- **World Serialization**: Complete save/load system
+  - JSON-based format with GZIP compression
+  - Save worlds, chunks, blocks, and player data
+  - WorldManager for high-level world operations
+  - Metadata support for quick world browsing
+  - Incremental and full world saving
+  - Network-ready byte serialization
 
 ### ResourceKey System
 
@@ -265,7 +272,7 @@ dotnet build -f net9.0-ios
 
 ### Run Tests
 
-The project includes 234 comprehensive unit tests covering all core engine features.
+The project includes 250 comprehensive unit tests covering all core engine features.
 
 ```bash
 # Run all tests (automatically generates HTML report)
@@ -319,6 +326,7 @@ start EvokerEngine.Tests/TestResults/TestResults.html
 - Networking/Multiplayer system (15 tests)
 - HUD system (19 tests)
 - Particle system (16 tests)
+- World Serialization system (16 tests)
 - Logger system (2 tests)
 - Time management (5 tests)
 - Layer stack (4 tests)
@@ -332,7 +340,7 @@ start EvokerEngine.Tests/TestResults/TestResults.html
 - Audio system (35 tests)
 - Physics system (20 tests)
 
-**Total: 234 tests** ✅
+**Total: 250 tests** ✅
 
 ### Run the Demo
 
