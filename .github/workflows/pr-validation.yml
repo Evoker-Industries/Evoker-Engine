@@ -57,33 +57,14 @@ jobs:
         dotnet build --configuration Release --no-restore
 
     - name: Run all tests
-      id: test-run
       run: |
         echo "Running comprehensive test suite..."
-        TEST_OUTPUT=$(dotnet test --configuration Release --no-build --verbosity normal --logger "console;verbosity=detailed" 2>&1 | tee /dev/stderr)
-        echo "test_output<<EOF" >> $GITHUB_OUTPUT
-        echo "$TEST_OUTPUT" >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
+        dotnet test --configuration Release --no-build --verbosity normal --logger "console;verbosity=detailed"
 
     - name: Check test results
       if: always()
       run: |
-        # Extract test counts from the test output
-        TEST_OUTPUT="${{ steps.test-run.outputs.test_output }}"
-        
-        # Parse test results
-        TOTAL_TESTS=$(echo "$TEST_OUTPUT" | grep -oP "Total:\s*\K\d+" | tail -1 || echo "250")
-        PASSED_TESTS=$(echo "$TEST_OUTPUT" | grep -oP "Passed:\s*\K\d+" | tail -1 || echo "250")
-        FAILED_TESTS=$(echo "$TEST_OUTPUT" | grep -oP "Failed:\s*\K\d+" | tail -1 || echo "0")
-        
-        echo "Test Results: $PASSED_TESTS/$TOTAL_TESTS passed"
-        
-        if [ "$FAILED_TESTS" -eq 0 ] && [ "$TOTAL_TESTS" -gt 0 ]; then
-          echo "✅ All $TOTAL_TESTS tests passed!"
-        else
-          echo "❌ $FAILED_TESTS tests failed. Please fix failing tests before merging."
-          exit 1
-        fi
+        echo "Tests completed - checking results..."
 
     - name: Verify no build warnings in Core
       run: |

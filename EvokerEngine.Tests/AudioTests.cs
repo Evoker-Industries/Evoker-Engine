@@ -312,9 +312,16 @@ public class AudioTests
     {
         // Arrange
         var source = new AudioSource();
+        
+        // Suppress warning logging for this test since we're testing that it doesn't crash
+        var originalLevel = Core.Logger.MinimumLevel;
+        Core.Logger.MinimumLevel = Core.Logger.LogLevel.Fatal;
 
         // Act & Assert - Should not throw
         source.Play();
+
+        // Restore logging level
+        Core.Logger.MinimumLevel = originalLevel;
     }
 
     [Fact]
