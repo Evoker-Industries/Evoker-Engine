@@ -39,6 +39,8 @@ plugins:
   - search
   - autorefs
   - offline
+  - tags:
+      tags_file: tags.md
 
 markdown_extensions:
   - pymdownx.highlight:

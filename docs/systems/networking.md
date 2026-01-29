@@ -1,3 +1,8 @@
+---
+tags:
+  - gamesystem
+---
+
 # Networking and Multiplayer System
 
 The Networking system in Evoker Engine provides TCP-based client/server multiplayer functionality with support for entity synchronization, inventory updates, dimension changes, and more.

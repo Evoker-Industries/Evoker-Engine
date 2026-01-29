@@ -1,3 +1,8 @@
+---
+tags:
+  - gamesystem
+---
+
 # Crafting System
 
 The Crafting system in Evoker Engine provides a flexible recipe system supporting multiple recipe types including shapeless crafting, shaped crafting (grid-based), smelting, and custom recipe types.
