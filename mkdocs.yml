@@ -35,13 +35,14 @@ theme:
     - content.code.annotate
     - navigation.footer
     - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.preview
 
 plugins:
   - search
   - autorefs
   - offline
-  - tags:
-      tags_file: tags.md
+  - tags
 
 markdown_extensions:
   - pymdownx.highlight:
