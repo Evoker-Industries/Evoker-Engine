@@ -1,3 +1,9 @@
+---
+tags:
+  - gamedev
+  - input
+---
+
 # Input Handling
 
 The Input system in Evoker Engine provides comprehensive input handling for keyboard, mouse, and gamepad/controller input with both event-based and polling-based approaches.

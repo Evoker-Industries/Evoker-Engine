@@ -1,6 +1,8 @@
 ---
 tags:
   - gamesystem
+  - items
+  - recipes
 ---
 
 # Crafting System

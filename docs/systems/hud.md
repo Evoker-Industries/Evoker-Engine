@@ -1,6 +1,8 @@
 ---
 tags:
   - gamesystem
+  - ui
+  - rendering
 ---
 
 # HUD (Heads-Up Display) System

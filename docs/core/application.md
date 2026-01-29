@@ -1,6 +1,8 @@
 ---
 tags:
   - coresystem
+  - rendering
+  - lifecycle
 ---
 
 # Application

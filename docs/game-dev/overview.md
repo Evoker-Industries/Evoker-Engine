@@ -1,3 +1,9 @@
+---
+tags:
+  - gamedev
+  - tutorial
+---
+
 # Game Development Overview
 
 Evoker Engine provides everything you need to create both 2D and 3D games. This guide gives you an overview of the game development workflow.

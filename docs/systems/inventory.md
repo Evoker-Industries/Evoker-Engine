@@ -1,6 +1,8 @@
 ---
 tags:
   - gamesystem
+  - ecs
+  - items
 ---
 
 # Inventory System

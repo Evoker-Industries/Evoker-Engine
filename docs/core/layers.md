@@ -1,6 +1,8 @@
 ---
 tags:
   - coresystem
+  - architecture
+  - lifecycle
 ---
 
 # Layer System

@@ -1,3 +1,10 @@
+---
+tags:
+  - modding
+  - tutorial
+  - extensibility
+---
+
 # Creating Mods for Evoker-Engine
 
 This guide shows you how to create mods for Evoker-Engine using the modding API.

@@ -1,6 +1,9 @@
 ---
 tags:
   - gamesystem
+  - voxel
+  - world
+  - items
 ---
 
 # Block System

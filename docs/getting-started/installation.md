@@ -1,3 +1,9 @@
+---
+tags:
+  - getting-started
+  - setup
+---
+
 # Installation
 
 This guide will help you set up Evoker Engine for development.

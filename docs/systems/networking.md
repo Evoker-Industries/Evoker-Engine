@@ -1,6 +1,8 @@
 ---
 tags:
   - gamesystem
+  - multiplayer
+  - ecs
 ---
 
 # Networking and Multiplayer System

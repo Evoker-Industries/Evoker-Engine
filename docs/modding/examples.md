@@ -1,3 +1,10 @@
+---
+tags:
+  - modding
+  - tutorial
+  - examples
+---
+
 # Mod Examples
 
 Complete examples of mods for Evoker Engine, from simple content mods to complex gameplay additions.

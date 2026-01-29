@@ -1,3 +1,10 @@
+---
+tags:
+  - graphics
+  - rendering
+  - vulkan
+---
+
 # Vulkan Rendering
 
 Evoker Engine uses Vulkan as its primary graphics API for high-performance, cross-platform rendering. The Vulkan integration is handled through Silk.NET.Vulkan.

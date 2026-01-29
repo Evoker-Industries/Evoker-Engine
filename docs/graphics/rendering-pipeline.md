@@ -1,3 +1,10 @@
+---
+tags:
+  - graphics
+  - rendering
+  - vulkan
+---
+
 # Rendering Pipeline
 
 The rendering pipeline in Evoker Engine is built on top of Vulkan and provides a modern, high-performance rendering system for both 2D and 3D graphics.

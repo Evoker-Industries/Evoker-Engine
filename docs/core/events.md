@@ -1,6 +1,8 @@
 ---
 tags:
   - coresystem
+  - input
+  - architecture
 ---
 
 # Event System

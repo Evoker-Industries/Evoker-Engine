@@ -1,6 +1,8 @@
 ---
 tags:
   - coresystem
+  - ecs
+  - architecture
 ---
 
 # Entity Component System (ECS)

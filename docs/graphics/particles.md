@@ -1,3 +1,10 @@
+---
+tags:
+  - graphics
+  - rendering
+  - vfx
+---
+
 # Particle System
 
 The Evoker Engine includes a comprehensive particle system for creating visual effects like explosions, smoke, fire, magic spells, and environmental effects.

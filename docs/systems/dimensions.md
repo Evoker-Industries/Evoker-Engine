@@ -1,6 +1,8 @@
 ---
 tags:
   - gamesystem
+  - world
+  - voxel
 ---
 
 # Dimension System

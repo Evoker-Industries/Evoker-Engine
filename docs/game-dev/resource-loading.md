@@ -1,3 +1,10 @@
+---
+tags:
+  - gamedev
+  - resources
+  - assets
+---
+
 # Resource Loading Examples
 
 This guide demonstrates how to use the newly implemented resource loading features.

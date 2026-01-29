@@ -1,6 +1,9 @@
 ---
 tags:
   - gamesystem
+  - world
+  - voxel
+  - serialization
 ---
 
 # World Serialization
