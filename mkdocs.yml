@@ -90,6 +90,8 @@ nav:
     - Block System: systems/blocks.md
     - Crafting System: systems/crafting.md
     - Dimension System: systems/dimensions.md
+    - HUD System: systems/hud.md
+    - Networking System: systems/networking.md
     - World Serialization: systems/world-serialization.md
   - Modding:
     - Creating Mods: modding/creating-mods.md
