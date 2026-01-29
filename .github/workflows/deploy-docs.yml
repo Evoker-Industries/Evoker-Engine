@@ -49,21 +49,21 @@ jobs:
         run: dotnet restore
 
       - name: Build MkDocs documentation
-        run: zensical build --site-dir _site
+        run: zensical build --clean
 
       - name: Build DocFX API documentation
         run: |
           docfx docfx.json
           # Copy DocFX output to MkDocs site under /api path
-          mkdir -p _site/api
-          cp -r _site/api/* _site/api/ 2>/dev/null || true
+          mkdir -p site/api
+          cp -r site/api/* _site/api/ 2>/dev/null || true
 
 
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site'
+          path: 'site'
 
   deploy:
     environment:
