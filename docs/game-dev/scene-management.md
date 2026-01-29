@@ -1,3 +1,10 @@
+---
+tags:
+  - gamedev
+  - ecs
+  - architecture
+---
+
 # Scene Management
 
 Scene Management in Evoker Engine provides a way to organize entities, manage multiple scenes, and work with cameras for rendering.

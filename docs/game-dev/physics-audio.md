@@ -1,3 +1,10 @@
+---
+tags:
+  - gamedev
+  - physics
+  - audio
+---
+
 # Physics and Audio Systems Guide
 
 This guide demonstrates how to use the fully implemented physics and audio systems in Evoker Engine.

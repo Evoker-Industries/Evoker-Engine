@@ -1,3 +1,10 @@
+---
+tags:
+  - coresystem
+  - ecs
+  - architecture
+---
+
 # Entity Component System (ECS)
 
 The Entity Component System (ECS) in Evoker Engine provides a data-oriented architecture for managing game objects. It separates data (Components) from behavior and allows for flexible, composable game entities.

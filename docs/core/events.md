@@ -1,3 +1,10 @@
+---
+tags:
+  - coresystem
+  - input
+  - architecture
+---
+
 # Event System
 
 The Event system in Evoker Engine provides a flexible way to handle input, window events, and custom game events. Events are dispatched to layers, allowing for decoupled communication between systems.

@@ -1,3 +1,10 @@
+---
+tags:
+  - gamesystem
+  - world
+  - voxel
+---
+
 # Dimension System
 
 The Dimension system in Evoker Engine provides a framework for creating multiple worlds/dimensions with different properties, similar to Minecraft's Overworld, Nether, and End dimensions.

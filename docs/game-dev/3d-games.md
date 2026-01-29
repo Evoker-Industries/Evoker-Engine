@@ -1,3 +1,11 @@
+---
+tags:
+  - gamedev
+  - tutorial
+  - 3d
+  - rendering
+---
+
 # Making 2D and 3D Games with Evoker-Engine
 
 This guide shows you how to easily create both 2D and 3D games using Evoker-Engine.

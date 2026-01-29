@@ -1,3 +1,11 @@
+---
+tags:
+  - gamesystem
+  - voxel
+  - world
+  - items
+---
+
 # Block System
 
 The Block system in Evoker Engine provides a flexible framework for creating voxel-based blocks with properties, states, and behaviors similar to Minecraft.

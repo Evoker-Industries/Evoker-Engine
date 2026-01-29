@@ -1,3 +1,10 @@
+---
+tags:
+  - gamesystem
+  - ecs
+  - items
+---
+
 # Inventory System
 
 The Inventory system in Evoker Engine provides a flexible item and inventory management system with support for stacking, weight limits, sorting, and custom item properties.

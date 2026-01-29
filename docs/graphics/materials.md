@@ -1,3 +1,10 @@
+---
+tags:
+  - graphics
+  - rendering
+  - shaders
+---
+
 # Material System
 
 The Material system in Evoker Engine defines how objects appear when rendered, including textures, shaders, and rendering properties.

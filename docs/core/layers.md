@@ -1,3 +1,10 @@
+---
+tags:
+  - coresystem
+  - architecture
+  - lifecycle
+---
+
 # Layer System
 
 The Layer system in Evoker Engine provides a modular way to organize game logic, rendering, and UI. Layers allow you to separate concerns and control the order of updates and rendering.

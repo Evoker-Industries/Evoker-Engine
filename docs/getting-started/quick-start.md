@@ -1,3 +1,9 @@
+---
+tags:
+  - getting-started
+  - tutorial
+---
+
 # Quick Start
 
 This guide will help you create your first game with Evoker Engine in just a few minutes.

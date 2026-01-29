@@ -1,3 +1,10 @@
+---
+tags:
+  - modding
+  - api
+  - extensibility
+---
+
 # Modding API Reference
 
 Complete API reference for creating mods in Evoker Engine.

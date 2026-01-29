@@ -1,3 +1,9 @@
+---
+tags:
+  - getting-started
+  - architecture
+---
+
 # Project Structure
 
 Understanding the Evoker Engine project structure will help you navigate the codebase and organize your own projects.

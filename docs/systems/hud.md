@@ -1,3 +1,10 @@
+---
+tags:
+  - gamesystem
+  - ui
+  - rendering
+---
+
 # HUD (Heads-Up Display) System
 
 The HUD system in Evoker Engine provides an easy-to-use API for creating and managing on-screen UI elements like health bars, text displays, buttons, panels, and more.

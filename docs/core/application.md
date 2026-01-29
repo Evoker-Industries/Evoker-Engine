@@ -1,3 +1,10 @@
+---
+tags:
+  - coresystem
+  - rendering
+  - lifecycle
+---
+
 # Application
 
 The `Application` class is the core of Evoker Engine. It manages the main application lifecycle, window creation, rendering loop, and coordinate all major systems.

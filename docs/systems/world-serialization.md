@@ -1,3 +1,11 @@
+---
+tags:
+  - gamesystem
+  - world
+  - voxel
+  - serialization
+---
+
 # World Serialization
 
 The Evoker Engine provides a comprehensive world serialization system for saving and loading game worlds, including blocks, chunks, player data, and custom metadata.
