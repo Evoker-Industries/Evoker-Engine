@@ -30,6 +30,7 @@ bld/
 *.nupkg
 *.snupkg
 **/packages/*
+nupkg/
 
 # Project-specific
 *.log

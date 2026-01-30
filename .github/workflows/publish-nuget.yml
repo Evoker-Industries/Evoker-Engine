@@ -1,0 +1,77 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package version (e.g., 1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    name: Build and Publish NuGet Package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Determine version
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          VERSION="${{ github.event.inputs.version }}"
+        else
+          # Extract version from tag (remove 'v' prefix)
+          VERSION="${GITHUB_REF#refs/tags/v}"
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Publishing version: $VERSION"
+
+    - name: Update project version
+      run: |
+        VERSION="${{ steps.version.outputs.version }}"
+        sed -i "s/<Version>.*<\/Version>/<Version>$VERSION<\/Version>/" EvokerEngine.Core/EvokerEngine.Core.csproj
+        cat EvokerEngine.Core/EvokerEngine.Core.csproj | grep Version
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build EvokerEngine.Core/EvokerEngine.Core.csproj --configuration Release --no-restore
+
+    - name: Run tests
+      run: dotnet test --configuration Release --no-build --verbosity normal
+
+    - name: Pack NuGet package
+      run: dotnet pack EvokerEngine.Core/EvokerEngine.Core.csproj --configuration Release --no-build --output ./nupkg
+
+    - name: List package contents
+      run: |
+        echo "Created package:"
+        ls -lh ./nupkg/
+
+    - name: Publish to NuGet repository
+      run: |
+        dotnet nuget push ./nupkg/*.nupkg \
+          --source https://repo.evokerking.dev/repository/nuget-hosted/ \
+          --api-key ${{ secrets.NUGET_API_KEY }} \
+          --skip-duplicate
+
+    - name: Upload package artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-package
+        path: ./nupkg/*.nupkg
+        retention-days: 30
