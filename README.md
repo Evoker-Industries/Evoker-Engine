@@ -233,6 +233,35 @@ EvokerEngine.Tests/    # Unit tests
 └── HudTests.cs
 ```
 
+## Installation
+
+### Using NuGet Package
+
+The easiest way to use Evoker Engine in your project is via the NuGet package:
+
+```bash
+# Add package reference to your project
+dotnet add package EvokerEngine.Core --source https://repo.evokerking.dev/repository/nuget-hosted/
+```
+
+Or add it manually to your `.csproj` file:
+
+```xml
+<PackageReference Include="EvokerEngine.Core" Version="1.0.0" />
+```
+
+Configure the custom NuGet source in your `nuget.config`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="evoker" value="https://repo.evokerking.dev/repository/nuget-hosted/" />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+  </packageSources>
+</configuration>
+```
+
 ## Building
 
 ### Prerequisites

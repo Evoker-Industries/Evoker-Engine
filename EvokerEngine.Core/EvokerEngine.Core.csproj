@@ -10,6 +10,20 @@
     <!-- Mobile-specific settings (only apply when building for mobile) -->
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">13.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    
+    <!-- NuGet Package Metadata -->
+    <PackageId>EvokerEngine.Core</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Evoker Industries</Authors>
+    <Company>Evoker Industries</Company>
+    <Description>A complete C# game engine with Vulkan rendering support using Silk.NET</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Evoker-Industries/Evoker-Engine</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Evoker-Industries/Evoker-Engine</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>game-engine;vulkan;silk-net;gamedev;ecs;rendering</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +34,10 @@
     <PackageReference Include="Silk.NET.Windowing" Version="2.22.0" />
     <PackageReference Include="StbImageSharp" Version="2.27.14" />
     <PackageReference Include="Silk.NET.OpenAL" Version="2.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
 </Project>
