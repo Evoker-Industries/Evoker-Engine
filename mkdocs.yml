@@ -1,7 +1,7 @@
 site_name: Evoker Engine Documentation
 site_description: A complete C# game engine with Vulkan rendering support
 site_author: evokerking1
-site_url: evokerengine.evokerking.dev
+site_url: https://evokerengine.evokerking.dev
 
 repo_name: evokerking1/Evoker-Engine
 repo_url: https://github.com/evokerking1/Evoker-Engine
