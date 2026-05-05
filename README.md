@@ -3,6 +3,7 @@
 [![CI/CD Pipeline](https://github.com/evokerking1/Evoker-Engine/actions/workflows/ci.yml/badge.svg)](https://github.com/evokerking1/Evoker-Engine/actions/workflows/ci.yml)
 [![PR Validation](https://github.com/evokerking1/Evoker-Engine/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/evokerking1/Evoker-Engine/actions/workflows/pr-validation.yml)
 [![Security](https://github.com/evokerking1/Evoker-Engine/actions/workflows/dependency-security.yml/badge.svg)](https://github.com/evokerking1/Evoker-Engine/actions/workflows/dependency-security.yml)
+[![Test](https://github.com/Evoker-Industries/Evoker-Engine/actions/workflows/test.yml/badge.svg)](https://github.com/Evoker-Industries/Evoker-Engine/actions/workflows/test.yml)
 
 A complete C# game engine with Vulkan rendering support using Silk.NET.
 
