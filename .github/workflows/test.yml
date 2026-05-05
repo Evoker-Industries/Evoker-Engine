@@ -31,4 +31,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Test
-      run: dotnet test --configuration Release --no-build --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.os }}"
+      run: dotnet test --configuration Release --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.os }}"
