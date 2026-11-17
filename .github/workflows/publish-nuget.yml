@@ -85,6 +85,7 @@ jobs:
         # Publish package (API key is passed via environment variable for security)
         dotnet nuget push ./nupkg/*.nupkg \
           --source https://repo.evokerking.dev/repository/nuget-hosted/ \
+          --username admin \
           --api-key "$NUGET_API_KEY" \
           --skip-duplicate
         
